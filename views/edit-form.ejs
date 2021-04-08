@@ -1,0 +1,111 @@
+<div class="container">
+  <h4 class="text-center mt-3 mb-2">Edit Form 📝</h4>
+  <form
+    action="/update"
+    method="POST"
+    class="mt-3"
+    enctype="multipart/form-data"
+  >
+    <div class="mb-3">
+      <label for="validationDefault01">Image Upload</label>
+      <div class="edit-images">
+
+  <% console.log("XXXXX", editPost) %> 
+  <% JSON.parse( editPost.images).map((img) =>{ %>
+      <div>
+        <img class="img-class" src="/uploadImages/<%= img %> " alt="Image" height="80px" width="80px" />
+      <span class="delete-img" data-img="<%= img %>">X</span>
+      </div>
+      <% }) %>
+
+      <div id="img-preview-div"></div>
+      <label class="btn btn-default btn-file"> <div class="add" title="Add files">+</div>
+      <input type='file' class='input-file ml-3' id="img-upload" name="files"
+       multiple style="display: none;">
+       </label>
+      <input type="hidden" id="old-images" name="allImages" value="<%= editPost.images || [] %>">
+      <input type="hidden" id="new-images" value="[]">
+
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Title</label>
+      <input
+        type="text"
+        class="form-control"
+        name="postTitle"
+        value="<%= editPost.title %>"
+        placeholder="Enter your title....."
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Category</label>
+      <select class="custom-select" name="category">
+        <% allCategories.map(item => { %>
+        <option value="<%= item.id %>" <%= item.id == editPost.category_id ? 'selected' : '' %>><%= item.name %> </option>
+        <% }) %>
+
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label  >Description:</label>
+      <textarea
+        class="form-control"
+        rows="5"
+        name="postBody"
+      ><%= editPost.body %></textarea>
+    </div>
+
+    <input type="hidden" name="postID" value="<%= editPost.id %>">
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+<script>
+ document.getElementById("img-upload").addEventListener("change", (e) => {
+    const imgPreview = document.getElementById("img-preview-div");
+    imgPreview.innerHTML = ''
+    // Add New images with old images
+    const oldImagesInp = document.getElementById('old-images')
+    const newImagesInp = document.getElementById('new-images')
+    let oldImages = JSON.parse(oldImagesInp.value)
+    let newImages = JSON.parse(newImagesInp.value)
+    oldImages = oldImages.filter(val => !newImages.includes(val));
+    newImages = []
+    
+    let i = 0;
+    while (i < e.target.files.length) {
+      const imgTag = document.createElement("img");
+      imgTag.src = window.URL.createObjectURL(e.target.files[i]);
+      imgTag.classList.add("preview-img");
+            imgTag.classList.add("img-class");
+
+      imgPreview.append(imgTag);
+      oldImages.push(e.target.files[i].name)
+      newImages.push(e.target.files[i].name)
+      i++;
+    }
+    oldImagesInp.value = JSON.stringify(oldImages)
+    newImagesInp.value = JSON.stringify(newImages)
+  });
+
+  const deleteImgsBtn = document.getElementsByClassName('delete-img')
+  console.log(deleteImgsBtn)
+  let i = 0
+  while(i < deleteImgsBtn.length) {
+deleteImgsBtn[i].addEventListener('click', e => {
+  // Add New images with old images
+    const oldImagesInp = document.getElementById('old-images')
+    // console.log('old', oldImages.value)
+    const oldImages = JSON.parse(oldImagesInp.value)
+      const dataImgValue = e.target.getAttribute('data-img')
+      oldImages.splice(oldImages.indexOf(dataImgValue), 1)
+      oldImagesInp.value = JSON.stringify(oldImages)
+      e.target.parentElement.remove()
+    })
+    i++
+  }
+</script>

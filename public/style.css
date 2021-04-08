@@ -1,0 +1,64 @@
+.blog-box {
+  margin: 12px 0;
+  border: 1px solid #ddd;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
+
+.input-btn {
+  background-color: #8c8c8c;
+  color: #fff;
+  border: 1px solid #8c8c8c;
+  padding: 5px;
+  border-radius: 6px;
+  box-shadow: 1px 1px 3px #000;
+  margin: 10px;
+}
+.input-btn:hover {
+  background-color: #c9cccb;
+}
+
+.preview-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  margin: 3px 10px;
+}
+
+.edit-images {
+  display: flex;
+  position: relative;
+}
+.img-class {
+  margin: 3px 13px;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+.delete-img {
+  position: absolute;
+  cursor: pointer;
+  top: -7px;
+  margin-left: -16px;
+  z-index: 99;
+  height: 23px;
+  width: 23px;
+  border-radius: 50%;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  opacity: 1;
+}
+.input-label {
+  cursor: pointer;
+}
+.add {
+  z-index: 11;
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  margin: 20px 0px;
+  font-size: 22px;
+  font-weight: bold;
+}
